@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Cursor Handler - A-Frame School</title>
+  <meta name="description" content="Cursor Handler - A-Frame School">
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script>
+
+  <style>
+    .header {
+      position: relative;
+      z-index: 1;
+    }
+
+    .rounded-plane {
+      width: 4;
+      height: 3;
+      background-color: red;
+      border-radius: 0.2;
+      /* Adjust this value for the desired roundness */
+      position: absolute;
+      z-index: -1;
+      /* Place the plane behind A-Frame's 3D content */
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <a-scene>
+    <a-assets>
+      <img id="ground" src="../assets/textures/tile.jpg">
+      <script type="text/typescript" src="../iframe/iframe.component.ts"></script>
+      <img id="myImage" src="../../assets/textures/tile.jpg">
+      <!-- <img id="sky" src="../../assets/textures/vrSky.jpg"> -->
+      <img id="storeSky" src="../../assets/textures/storesky.jpg">
+      <img id="sky" src="../assets/360Sky/sky3.jpg">
+    </a-assets>
+
+
+  <a-camera>
+      <a-cursor color="red" rotation = "0 0 0">
+            <a-entity gltf-model="../../assets/hand/hand.glb" position="0 -0.4 -1" rotation="0 0 0" id="specificationPopupHand" scale="0.1 0.1 0.1">
+              <a-text id = "gesture" value = "none"  position="0 -0.6 -1" scale = "5 5 5" color = "black" rotation = "180 0 0"></a-text>
+            </a-entity>
+
+      </a-cursor>
+  </a-camera>
+
+
+
+    <!-- <a-camera>
+          <a-cursor></a-cursor>
+   </a-camera> -->
+   
+    <a-sky color="white"></a-sky>
+    <a-entity laser-controls="hand: right"></a-entity>
+    <!-- <a-entity laser-controls="hand: left" ></a-entity> -->
+    <!-- Racks models view -->
+
+    <a-entity id="vrMallScene" visible = "true" position = "0 0 0">
+      <!-- <a-entity light="type:point; intensity: 0.5; distance: 50; decay: 2 "
+      position="0 1 0"></a-entity> -->
+     
+      <!-- <a-entity light="type:point; intensity: 0.5; "
+      position="0 30 10"></a-entity> -->
+
+      <a-light type = "point" color="white" position="-20 1 0"></a-light>
+      <a-light type="point" color="white" position="20 10 0"></a-light>
+
+    <!-- <a-light type="ambient" color="#222"></a-light> -->
+
+      <a-entity gltf-model="../../assets/buildings/Mall v62.glb" position="0 0 -15"  rotation ="0 0 0"  scale = "100 100 100"></a-entity>
+       <a-entity id="shopSelector1"  gltf-model="../../assets/buildings/Store1.glb" position="20 0 0.7"  rotation ="0 180 0"  scale = "50 50 50">
+        <a-plane src="../assets/textures/tile.jpg" height="1000" width="1000" repeat="200 200 200" rotation="-90 0 0" position = '0 0.5 0'></a-plane>
+
+        </a-entity>
+        <a-entity id="shopSelector2" gltf-model="../../assets/buildings/Store2.glb" position="-19 0 0.7"  rotation ="0 0 0"  scale = "50 50 50"></a-entity>
+      <!-- <a-entity id="shopSelector" geometry="primitive: box" material="color: red" handle-select-events position="-1 2 1.5" scale = "0.5 0.5 0.54"></a-entity> -->
+
+      <!-- <a-camera><a-cursor></a-cursor></a-camera> -->
+
+    
+      <!-- <a-entity id ="vrMallController" laser-controls="hand: right" color = "black"></a-entity> -->
+      <!-- <a-entity laser-controls="hand: left" ></a-entity>
+      <a-entity laser-controls="hand: right"></a-entity> -->
+
+    </a-entity>
+
+    <a-entity id = "vrStoreScene1" visible = "false" position = "0 100 0">
+      <!-- <a-sky src ="#sky" radius = "200" position = "0 42 0"></a-sky> -->
+      <a-entity  gltf-model="../../assets/studio_room.glb" position="20 -50 0.7"  rotation ="0 180 0"  scale = "50 50 50">      </a-entity>
+
+      <a-light type="point" color="white" position="0 5 0"></a-light>
+
+      <!-- <a-camera position = "0 1.2 0"><a-cursor></a-cursor></a-camera> -->
+     
+      <!-- <a-plane src="../assets/textures/tile.jpg" height="1000" width="1000" repeat="200 200 200" rotation="-90 0 0" position = '0 -38 0'></a-plane> -->
+      
+      <a-entity>
+
+
+        <a-entity handle-events id="boxContainer" position="0 0 0" cursor-listener></a-entity>
+        <a-entity handle-events id="lapContainer" position="65 -35 100" cursor-listener></a-entity>
+
+        <a-entity gltf-model="../../assets/buildings/Rack_v7.glb" position="0 -38 -86" color="yellow" rotation="-90 0 0"
+          scale="0.2 0.2 0.2"></a-entity>
+        <a-entity gltf-model="../../assets/buildings/Rack_v7.glb" position="55 -38 -86" color="#4CC3D9" rotation="-90 0 0"
+          scale="0.2 0.2 0.2"></a-entity>
+        <a-entity gltf-model="../../assets/buildings/Rack_v7.glb" position="-35 -38 -86" color="#4CC3D9"
+          rotation="-90 0 0" scale="0.2 0.2 0.2"></a-entity>
+        <a-entity gltf-model="../../assets/buildings/Rack_v7.glb" position="110 -38 -86" color="#4CC3D9"
+          rotation="-90 0 0" scale="0.2 0.2 0.2"></a-entity>
+  
+        <a-entity gltf-model="../../assets/buildings/Desk.glb" position="70 -38 -36" color="#4CC3D9" rotation="-90 0 0"
+          scale="0.2 0.2 0.2"></a-entity>
+  
+        <!-- <a-entity gltf-model="../../assets/buildings/Rack_v7.glb" position="50 -38 150" color="yellow"
+          rotation="-90 180 0" scale="0.2 0.2 0.2"></a-entity>
+        <a-entity gltf-model="../../assets/buildings/Rack_v7.glb" position="20 -38 150" color="#4CC3D9"
+          rotation="-90 180 0" scale="0.2 0.2 0.2"></a-entity>
+        <a-entity gltf-model="../../assets/buildings/Rack_v7.glb" position="-35 -38 150" color="#4CC3D9"
+          rotation="-90 180 0" scale="0.2 0.2 0.2"></a-entity>
+        <a-entity gltf-model="../../assets/buildings/Rack_v7.glb" position="-90 -38 150" color="#4CC3D9"
+          rotation="-90 180 0" scale="0.2 0.2 0.2"></a-entity> -->
+  
+      </a-entity>
+
+      <!-- <a-entity>
+        <a-entity handle-events id="boxContainer" position="0 0 0" cursor-listener></a-entity>
+        <a-entity id="macContainer" position="0 0 0" cursor-listener></a-entity>
+        <a-entity id="lapContainer" position="0 0 0" cursor-listener></a-entity>
+
+        <a-entity gltf-model="../../assets/buildings/Rack_v7.glb" position="0 0 -3" color="yellow" rotation="-90 0 0"
+          scale="0.005 0.005 0.005"></a-entity>
+        <a-entity gltf-model="../../assets/buildings/Rack_v7.glb" position="1.4 0 -3" color="#4CC3D9" rotation="-90 0 0"
+        scale="0.005 0.005 0.005"></a-entity>
+        <a-entity gltf-model="../../assets/buildings/Rack_v7.glb" position="2.8 0 -3" color="#4CC3D9"
+          rotation="-90 0 0" scale="0.005 0.005 0.005"></a-entity>
+        <a-entity gltf-model="../../assets/buildings/Rack_v7.glb" position="4.2 0 -3" color="#4CC3D9"
+          rotation="-90 0 0" scale="0.005 0.005 0.005"></a-entity>
+  
+        <a-entity gltf-model="../../assets/buildings/Desk.glb" position="3 0 -1.5" color="#4CC3D9" rotation="-90 0 0"
+          scale="0.005 0.005 0.005"></a-entity>
+  
+        <a-entity gltf-model="../../assets/buildings/Rack_v7.glb" position="-1.4 0 3" color="yellow"
+          rotation="-90 180 0" scale="0.005 0.005 0.005"></a-entity>
+        <a-entity gltf-model="../../assets/buildings/Rack_v7.glb" position="2.8 0 3" color="#4CC3D9"
+          rotation="-90 180 0" scale="0.005 0.005 0.005"></a-entity>
+        <a-entity gltf-model="../../assets/buildings/Rack_v7.glb" position="1.4 0 3" color="#4CC3D9"
+          rotation="-90 180 0" scale="0.005 0.005 0.005"></a-entity>
+        <a-entity gltf-model="../../assets/buildings/Rack_v7.glb" position="0 0 3" color="#4CC3D9"
+          rotation="-90 180 0" scale="0.005 0.005 0.005"></a-entity>
+  
+      </a-entity> -->
+  
+      <!-- End of Racks models view -->
+  
+  
+      <!-- Start of specification view -->
+      <!-- <a-image id="addCartPlane" position="1.2 1.5 -2" width="0.1" height="0.25" color="white"
+        src="../../assets/textures/background.png" visible="false">
+        <a-image id="cartButtonMenu" position="0 0.15 0.001" width="0.05" transparent="false" height="0.05" color="white"
+          src="../../assets/textures/cart.jpg"></a-image>
+        <a-image id="profileButton" position="0 0.09 0.001" width="0.05" transparent="false" height="0.05" color="white"
+          src="../../assets/textures/user.jpg"></a-image>
+        <a-image id="micButton" handle-microphone position="0 0.01 0.001" width="0.05" transparent="false" height="0.065"
+          color="white" src="../../assets/textures/microphone.png" cursor-listener></a-image>
+      </a-image> -->
+
+      <a-image id="addCartPlane" position="35 14 -45" width="8" height="20" color="white"
+        src="../../assets/textures/background.png" visible="false">
+        <a-image id="cartButtonMenu" position="0 5 0.2" width="4" transparent="false" height="4" color="white"
+          src="../../assets/textures/cart.jpg"></a-image>
+        <a-image id="profileButton" position="0 -0.5 0.2" width="4" transparent="false" height="4" color="white"
+          src="../../assets/textures/user.jpg"></a-image>
+        <a-image id="micButton" handle-microphone position="0 -5.7 0.2" width="4" transparent="false" height="5"
+          color="white" src="../../assets/textures/microphone.png" cursor-listener></a-image>
+      </a-image>
+
+
+      <!-- <a-entity id="successMessage" position="-16.5 6 -2" visible="false">
+        <a-image id="popupPlane" class="rounded-plane" width="30" height="33" color="white"
+        src="../../assets/textures/background.png">
+           <a-image id="successBackground" class="rounded-plane" width="30" height="22" color="white"
+              src="../../assets/textures/payment.png" position = "0 2 0.1">
+           </a-image>
+           <a-image id="goBackButton" class="rounded-plane" width="10.2" height="4" color="white" transparent="false"
+           src="../../assets/textures/backbutton2.png" position = "0 -12 0.1">
+            </a-image>
+        </a-image>
+      </a-entity> -->
+  
+      <!-- <a-entity id="specificationPopup" position="1.2 1.5 -15" visible="false">
+        <a-image id="popupPlane" class="rounded-plane" width="0.6" height="0.65" color="white"
+          src="../../assets/textures/background.png">
+          <a-entity id="closeButton" handle-events position="1.2 1.5 -2">
+            <a-image position="10 2 45.1" width="2" transparent="false" height="2" color="white"
+              src="../../assets/textures/cancel.png"></a-image>
+          </a-entity>
+    
+          <a-entity handle-events position="0 0 2">
+            <a-text value="apple" position="-0.25 0.22 -2" scale="0.15 0.15 0.15" color="black"></a-text>
+            <a-text id="text" value="I Phone 11 Pro" position="-0.25 0.15 -2" scale=" 0.2 0.2 0.2" color="black"></a-text>
+            <a-text value="56 ratings" position="-0.18 0.1 -2" scale="0.1 0.1 0.1" color="black"></a-text>
+          </a-entity>
+  
+          <a-entity position="0 -0.07 2">
+            <a-text value="color" position="-0.25 0.1 -2" scale="0.15 0.15 0.15" color="black"></a-text>
+            <a-ring color="teal" radius-inner="0.01" radius-outer="0.02" position="-0.23 0.05 -1.99"></a-ring>
+            <a-ring color="black" radius-inner="0.01" radius-outer="0.02" position="-0.18 0.05 -1.99"></a-ring>
+            <a-ring color="silver" radius-inner="0.01" radius-outer="0.02" position="-0.13 0.05 -1.99"></a-ring>
+            <a-ring color="blue" radius-inner="0.01" radius-outer="0.02" position="-0.08 0.05 -1.99"></a-ring>
+          </a-entity>
+  
+          <a-entity handle-events position="0 -0.1 2">
+            <a-text id="price" value="$499" position="-0.25 0.01 -2" scale="2 2 2" scale="0.2 0.2 0.2" color="black"></a-text>
+            <a-text value="Incl.Vat plus shipping" position="-0.25 -0.04 -2" scale="0.1 0.1 0.1" color="black"></a-text>
+            <a-text value="2-4 day shipping" position="-0.25 -0.07 -2" scale="0.1 0.1 0.1" color="black"></a-text>
+          </a-entity>
+  
+          <a-plane position="0 -0.15 2" color="white">
+            <a-image id="addButton" color="#6366F1" width="0.15" transparent="false" height="0.05"
+              src="../../assets/textures/button.png" class="rounded-plane" position="-0.1 -0.1 -1.99">
+              <a-text value="Add to Cart" align="center" color="white" scale="0.1 0.1 0.1"></a-text>
+            </a-image>
+  
+            <a-image id="buyButton" color="#E5E7EB" transparent="false" src="../../assets/textures/button.png" width="0.15"
+              height="0.05" class="rounded-plane" position="0.1 -0.1 -1.99">
+              <a-text value="Buy Now" align="center" color="black" scale="0.1 0.1 0.1"></a-text>
+            </a-image>
+          </a-plane>
+        </a-image>
+      </a-entity> -->
+
+      <a-entity id="specificationPopup" position="10 2 -90" visible="false">
+        <a-image id="popupPlane" class="rounded-plane" width="40" height="45" color="white"
+          src="../../assets/textures/background.png">
+          <a-image handle-events id="imagePopup" position="-15.5 1.5 -45" width="9" height="15"
+            src="../../assets/textures/background.png">
+          </a-image>
+          <a-entity id="closeButton" handle-events position="7 16 -45">
+            <a-image position="10 2 45.1" width="2.5" transparent="false" height="2.5" color="white"
+              src="../../assets/textures/cancel.png"></a-image>
+          </a-entity>
+    
+          <a-entity handle-events position="-16.5 6 -45">
+            <a-text value="apple" position="0 10.3 45.1" scale="7 7 7" color="black"></a-text>
+            <a-text id="text" value="I Phone 11 Pro" position="0 8 45.1" scale="10 10 10" color="black"></a-text>
+            <a-text value="56 ratings" position="3 5.6 45.1" scale="6 6 6" color="black"></a-text>
+          </a-entity>
+  
+          <a-entity position="-16.5 4 -45">
+            <a-text value="color" position="0 2 45.1" scale="7 7 7" color="black"></a-text>
+            <a-ring color="teal" radius-inner="0.4" radius-outer="1.2" position="1 -1 45.1"></a-ring>
+            <a-ring color="black" radius-inner="0.4" radius-outer="1.2" position="3.8 -1 45.1"></a-ring>
+            <a-ring color="silver" radius-inner="0.4" radius-outer="1.2" position="6.5 -1 45.1"></a-ring>
+            <a-ring color="blue" radius-inner="0.4" radius-outer="1.2" position="9.3 -1 45.1"></a-ring>
+          </a-entity>
+  
+          <a-entity handle-events position="-16.5 0 -45">
+            <a-text id="price" value="$499" position="0 -4 45.1" scale="2 2 2" scale="10 10 10 " color="black"></a-text>
+            <a-text value="Incl.Vat plus shipping" position="0 -6.5 45.1" scale="5 5 5" color="black"></a-text>
+            <a-text value="2-4 day shipping" position="0 -9 45.1" scale="5 5 5" color="black"></a-text>
+          </a-entity>
+  
+          <a-plane position="-16.5 -1.5 -45" color="white">
+            <a-image id="addButton" color="#6366F1" width="12" transparent="false" height="4"
+              src="../../assets/textures/button.png" class="rounded-plane" position="6.5 -13 45.2">
+              <a-text value="Add to Cart" align="center" color="white" scale="9 9 9"></a-text>
+            </a-image>
+  
+            <a-image id="buyButton" color="#E5E7EB" transparent="false" src="../../assets/textures/button.png" width="12"
+              height="4" class="rounded-plane" position="19 -13 45.2">
+              <a-text value="Buy Now" align="center" color="black" scale="9 9 9"></a-text>
+            </a-image>
+          </a-plane>
+        </a-image>
+      </a-entity>
+  
+      <!-- End of specification view -->
+  
+      <a-entity id="cartViewPlane" position="5 2 -90" visible="false">
+        <a-plane id="cartPlane" class="rounded-plane" width="90" height="59" color="white"
+          src="../../assets/textures/background.png">
+          <a-entity position="-40 28 -45">
+            <a-image id="backButton" color="#e4e4ee" width="6.2" height="2.2" src="../../assets/textures/backButton.png"
+            class="rounded-plane" position=" 3.3 -4 45.1"></a-image>
+            <!-- <a-entity handle-events>
+              <a-text id="backButton" value="Back" position="0 -4 45.1" scale="6 6 6 " color="black"></a-text>
+            </a-entity> -->
+            <a-text handle-events value="Your Cart" position="0 -8 45.1" scale="8 8 8" color="black"></a-text>
+            <a-text id="cartValue" handle-events value="Your Cart" position="40 -8 45.1" scale="8 8 8"
+              color="black"></a-text>
+            <!-- <a-box width="50" height="0.05" depth="0.01" color="gray" position="23 -9 45.1"></a-box> -->
+            <!-- <a-text  handle-events id="IdName" value="Iphone" position="0 -8.5 45.1"  scale="8 8 8" color="black"></a-text> -->
+          </a-entity>
+         
+          <a-entity id="scrollContainer" position="-5 -2 -45" geometry="primitive: plane; width: 2; height: 4" 
+            material="color: #f0f0f0; shader: flat"></a-entity> 
+  
+          <a-entity position="20 22 -45" color="white">
+            <a-image id="addButton" color="#e4e4ee" width="30" height="18" src="../../assets/textures/button.png"
+              class="rounded-plane" position="6.5 -13 45.1">
+              <a-text handle-events value="Order Summery" position="-15 12.5  0.5" scale="8 8 8 "
+                color="black"></a-text>
+              <a-text handle-events value="Subtotal" position="-12 5 0.5" scale="5 5 5 "
+                color="black"></a-text>
+              <a-text handle-events value="Shipping" position="-12 2.5 0.5" scale="5 5 5" color="black"></a-text>
+  
+              <a-text handle-events id="subTotal" value="$124.00" position="7 5 0.5" scale="5 5 5 " color="black"></a-text>
+              <a-text handle-events id= "shippingsTotal" value="$14.00" position="7 2.5 0.5" scale="5 5 5" color="black"></a-text>
+  
+              <a-box width="26" height="0.05" depth="0.01" color="gray" position="0 -1 0.5"></a-box>
+  
+              <a-text handle-events value="Total" position="-12 -4 0.5" scale="8 8 8" color="black"></a-text>
+              <a-text handle-events id = "totalValue" value="$164.00" position="7 -4 0.5" scale="8 8 8" color="black"></a-text>
+              <a-text handle-events value="including VAT" position="7 -6 0.5" scale="5 5 5" color="black"></a-text>
+            </a-image>
+  
+            <a-image id="checkoutButton" color="#6366F1" width="15" height="5" src="../../assets/textures/button.png"
+              class="rounded-plane" position="13.5 -25.5 45.1">
+              <a-text value="Checkout" align="center" color="white" scale="8 8 8" position="0 0 0.5"></a-text>
+            </a-image>
+          </a-entity>
+  
+        </a-plane>
+      </a-entity>
+  
+      <a-image id="emptyPlane" class="rounded-plane" position="5 8 45" width="30" height="38" color="white"
+        src="../../assets/textures/emptyCart.png" visible="false">
+        <a-image id="goHomeButton" color="#6366F1" width="15" height="5" src="../../assets/textures/cartButton.png"
+          class="rounded-plane" position="0 -23.5 0">
+          <a-text value="Go Home" align="center" color="white" scale="8 8 8" position="0 0 0.5"></a-text>
+        </a-image>
+      </a-image>
+  
+      <!-- Start of checkout UI -->
+  
+      <a-entity id="cartcheckoutPlane" position="5 2 -90" visible="false">
+        <a-plane id="checkoutcartPlane" class="rounded-plane" width="90" height="59" color="white"
+          src="../../assets/textures/background.png">
+          <a-entity position="-40 28 -45">
+            <a-image id="backCheckButton" color="#e4e4ee" width="6.2" height="2.2" src="../../assets/textures/backButton.png"
+            class="rounded-plane" position=" 3.3 -4 45.1"></a-image>
+            <!-- <a-entity id="backCheckButton">
+              <a-text value="Back" position="0 -4 45.1" scale="7 7 7 " color="black"></a-text>
+            </a-entity> -->
+            <a-text value="Billing Details" position="0 -10 45.1" scale="6 6 6 " color="black"></a-text>
+            <a-text handle-events value="Checkout" position="0 -6.5 45.1" scale="9 9 9" color="black"></a-text>
+            <a-entity position="0 -15 45.1">
+              <a-text value="Personal Information" position="0 0 0" scale="7 7 7 " color="black"></a-text>
+              <a-text value="Full Name" position="0 -5 0" scale="6 6 6 " color="black"></a-text>
+              <a-image color="#e4e4ee" width="15" height="2" src="../../assets/textures/button.png" class="rounded-plane"
+                position="7 -7.5 0"></a-image>
+              <a-text value="Email" position="18 -5 0" scale="6 6 6 " color="black"></a-text>
+              <a-image color="#e4e4ee" width="15" height="2" src="../../assets/textures/button.png" class="rounded-plane"
+                position="25 -7.5 0"></a-image>
+            </a-entity>
+
+            <a-entity position="0 -28.5 45.1">
+              <a-text value="Payment Details" position="0 0 0" scale="7 7 7 " color="black"></a-text>
+              <a-text value="Card Holder Name" position="0 -5 0" scale="7 7 7 " color="black"></a-text>
+              <a-image color="#e4e4ee" width="32" height="2.5" src="../../assets/textures/button.png" class="rounded-plane"
+                position="16 -8 0"></a-image>
+              <a-text value="Card Number" position="0 -13 0" scale="7 7 7 " color="black"></a-text>
+                <a-image color="#e4e4ee" width="32" height="2.5" src="../../assets/textures/button.png" class="rounded-plane"
+                  position="16 -16 0"></a-image>
+              <a-text value="Expiration" position="0 -21 0" scale="7 7 7 " color="black"></a-text>
+                  <a-image color="#e4e4ee" width="8" height="2.5" src="../../assets/textures/button.png" class="rounded-plane"
+                    position="4 -24 0"></a-image>
+                  <a-image color="#e4e4ee" width="8" height="2.5" src="../../assets/textures/button.png" class="rounded-plane"
+                    position="14 -24 0"></a-image>
+              <a-text value="CVV" position="21 -21 0" scale="7 7 7 " color="black"></a-text>
+                  <a-image color="#e4e4ee" width="12" height="2.5" src="../../assets/textures/button.png" class="rounded-plane"
+                    position="27 -24 0"></a-image>
+            </a-entity>
+            
+
+            <!-- <a-image id="boughtList" position= "58 -16 45.1" src = "../../assets/textures/button.png" width = "34" height = "15"
+            color = "#6366F1"></a-image> -->
+            <a-image id="cartboughtList" position= "58 -16 45.1" src = "../../assets/textures/button.png" width = "34" height = "15"
+            color = "#6366F1"></a-image>
+  
+            <a-text id="cartValue" handle-events value="Cart Information" position="40 -6.5 45.1" scale="8 8 8"
+              color="black"></a-text>
+
+              <a-text id="cartValue" handle-events value="Total Amount" position="45 -20.5 45.2" scale="7 7 7"
+              color="white"></a-text>
+
+              <a-text id="cartValue" handle-events value="Payment Options" position="40 -27 45.1" scale="8 8 8"
+              color="black"></a-text>
+              <a-image width="32" height="9" src="../../assets/textures/paymentoptions.jpg" class="rounded-plane" transparent = "false"
+              position="57 -33 45.1"></a-image>
+
+              
+            <a-image id="cartConfirmButton" color="#6366F1" width="17" height="5" src="../../assets/textures/button.png"
+            class="rounded-plane" position="66 -42 45.1">
+            <a-text value="Confirm Payment" align="center" color="white" scale="7 7 7" position="0 0 0.5"></a-text>
+          </a-image>
+          </a-entity>
+          <!-- 
+        <a-entity id="scrollContainer" position="-5 -2 -45" geometry="primitive: plane; width: 2; height: 4"
+          material="color: #f0f0f0; shader: flat"></a-entity> -->
+  
+        </a-plane>
+      </a-entity>
+
+      <a-entity id="checkoutPlane" position="5 2 -90" visible="false">
+        <a-image id="checkoutcartPlane" class="rounded-plane" width="90" height="59" color="white"
+          src="../../assets/textures/background.png">
+          <a-plane width="86" height="55" color="white" position ="0 0 0.1">
+          <a-entity position="-40 28 -45">
+            <a-image id="backtoButton" color="#e4e4ee" width="6.2" height="2.2" src="../../assets/textures/backButton.png"
+            class="rounded-plane" position=" 3.3 -4 45.1"></a-image>
+            <!-- <a-entity id="backtoButton">
+              <a-text value="Back" position="0 -4 45.1" scale="7 7 7 " color="black"></a-text>
+            </a-entity> -->
+            <a-text value="Billing Details" position="0 -10 45.1" scale="6 6 6 " color="black"></a-text>
+            <a-text handle-events value="Checkout" position="0 -6.5 45.1" scale="9 9 9" color="black"></a-text>
+            <a-entity position="0 -15 45.1">
+              <a-text value="Personal Information" position="0 0 0" scale="7 7 7 " color="black"></a-text>
+              <a-text  value="Full Name" position="0 -5 0" scale="6 6 6 " color="black"></a-text>
+              <a-image id="FullName" color="#e4e4ee" width="15" height="2.5" src="../../assets/textures/button.png" class="rounded-plane"
+                position="7 -7.5 0">
+                <a-text id="username" value="" position="0 0 0.1" scale="6 6 6 " color="black"></a-text>
+              </a-image>
+              <a-text  value="Email" position="18 -5 0" scale="6 6 6 " color="black"></a-text>
+              <a-image id="Email" color="#e4e4ee" width="15" height="2.5" src="../../assets/textures/button.png" class="rounded-plane"
+                position="25 -7.5 0">
+                <a-text id="useremail" value="" position="0 0 0.1" scale="6 6 6 " color="black"></a-text>
+              </a-image>
+            </a-entity>
+
+            <a-entity position="0 -28.5 45.1">
+              <a-text value="Payment Details" position="0 0 0" scale="7 7 7 " color="black"></a-text>
+              <a-text value="Card Holder Name" position="0 -5 0" scale="7 7 7 " color="black"></a-text>
+              <a-image id="cardName" color="#e4e4ee" width="32" height="2.5" src="../../assets/textures/button.png" class="rounded-plane"
+                position="16 -8 0">
+                <a-text id="cardname" value="" position="0 0 0.1" scale="6 6 6 " color="black"></a-text>
+              </a-image>
+              <a-text value="Card Number" position="0 -13 0" scale="7 7 7 " color="black"></a-text>
+                <a-image id="cardNumber" color="#e4e4ee" width="32" height="2.5" src="../../assets/textures/button.png" class="rounded-plane"
+                  position="16 -16 0">
+                  <a-text id="cardnumber" value="" position="0 0 0.1" scale="6 6 6 " color="black"></a-text>
+                </a-image>
+              <a-text value="Expiration" position="0 -21 0" scale="7 7 7 " color="black"></a-text>
+                  <a-image id="Month" color="#e4e4ee" width="8" height="2.5" src="../../assets/textures/button.png" class="rounded-plane"
+                    position="4 -24 0">
+                    <a-text id="month" value="" position="0 0 0.1" scale="6 6 6 " color="black"></a-text>
+                  </a-image>
+                  <a-image id="Year" color="#e4e4ee" width="8" height="2.5" src="../../assets/textures/button.png" class="rounded-plane"
+                    position="14 -24 0">
+                    <a-text id="year" value="" position="0 0 0.1" scale="6 6 6 " color="black"></a-text>
+                  </a-image>
+              <a-text value="CVV" position="21 -21 0" scale="7 7 7 " color="black"></a-text>
+                  <a-image id="CVV" color="#e4e4ee" width="12" height="2.5" src="../../assets/textures/button.png" class="rounded-plane"
+                    position="27 -24 0">
+                    <a-text id="cvv" value="" position="0 0 0.1" scale="6 6 6 " color="black"></a-text>
+                  </a-image>
+            </a-entity>
+            
+
+            <a-image id="boughtList" position= "58 -16 45.1" src = "../../assets/textures/button.png" width = "34" height = "15"
+            color = "#6366F1"></a-image>
+  
+  
+            <a-text id="cartValue" handle-events value="Cart Information" position="40 -6.5 45.1" scale="8 8 8"
+              color="black"></a-text>
+
+              <a-text id="cartValue" handle-events value="Total Amount" position="45 -20.5 45.2" scale="7 7 7"
+              color="white"></a-text>
+
+              <a-text id="cartValue" handle-events value="Payment Options" position="40 -27 45.1" scale="8 8 8"
+              color="black"></a-text>
+              <a-image width="32" height="9" src="../../assets/textures/paymentoptions.jpg" class="rounded-plane" transparent = "false"
+              position="57 -33 45.1"></a-image>
+
+              
+            <a-image id="ConfirmButton" color="#6366F1" width="17" height="5" src="../../assets/textures/button.png"
+            class="rounded-plane" position="66 -42 45.1">
+            <a-text value="Confirm Payment" align="center" color="white" scale="7 7 7" position="0 0 0.5"></a-text>
+          </a-image>
+          </a-entity>
+          <!-- 
+        <a-entity id="scrollContainer" position="-5 -2 -45" geometry="primitive: plane; width: 2; height: 4"
+          material="color: #f0f0f0; shader: flat"></a-entity> -->
+          </a-plane>
+        </a-image>
+      </a-entity>
+      </a-entity>
+
+
+  </a-scene>
+
+
+</body>
+
+</html>
